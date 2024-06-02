@@ -105,20 +105,3 @@ class link_node:
 
     def __str__(self):
         return f"{self.val}"
-
-def main():
-    ints = Linked_List()
-    ints.insert(10, 0)
-    ints.insert(5, 1)
-    ints.insert(5, 2)
-    ints.insert(6, 3)
-    print(f"length = {ints.len()}")
-    print(ints)
-    ints.set(12, 0)
-    print(ints)
-    print(ints.pop())
-    print(ints)
-    ints.push(7)
-    print(ints)
-
-main()
