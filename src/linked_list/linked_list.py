@@ -6,8 +6,12 @@ class Linked_List:
         temp = self.head
         str_out = ""
         while temp:
-            str_out = str_out + str(temp.val) + ", "
-            temp = temp.next
+            if temp.next != None:    
+                str_out = str_out + str(temp.val) + ", "
+                temp = temp.next
+            else:
+                str_out = str_out + str(temp.val)
+                temp = temp.next
         return str_out
 
     def insert(self, val, index):
