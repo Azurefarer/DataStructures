@@ -57,4 +57,3 @@ class link_node:
 
     def __str__(self):
         return f"{self.val}"
-
