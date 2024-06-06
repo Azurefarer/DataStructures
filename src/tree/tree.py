@@ -21,33 +21,46 @@ class Tree: # Tree Data Structure | Tree Data Type Inspector
         return str_out
 
     # Manipulation
-    def insert(self, val, *args): # *args should be an index
+    def init(self, val):
         if self.root == None:
             self.root = Tree_Node(val)
             self.current = self.root
         else:
-            if args: self.index = args[0]
-            if self.current.head == None:
-                self.id["tree_height"] += 1
-                self.id["node_height"] += 1
-            self.current.add_child(val, self.index)
-            if self.current.len() == self.index:
-                self.index += 1
-            else: pass
+            try:
+                raise InitError("Tree already has a root node")
+            except InitError as err:
+                print(err)
+                raise
 
-    def replace(self, val, index):
-        if self.current.child == None:
+    def insert(self, val, *args): # *args should be an index
+        if self.root == None:
+            self.need_root()
+        if args: self.index = args[0]
+        if self.current.head == None:
+            self.id["tree_height"] += 1
+            self.id["node_height"] += 1
+        self.current.add_child(val, self.index)
+        if self.current.len() == self.index:
+            self.index += 1
+        else: pass
+
+    def replace(self, val):
+        if self.root == None:
+            self.need_root()
+        if self.current.head == None:
             temp = self.current.parent
-            self.current.add_child(val)
+            self.current.add_child(val, 0)
+            self.current = self.current.head
+            self.current.parent = temp
         
-        elif self.root != None and self.current.child != None:
-            temp = self.current.child
-            self.current.child = Tree_Node(val)
-            self.current.child.child = temp
-            self.current.child.child.parent = self.current.child
-            self.current.child.parent = self.current
-            self.current = self.current.child
-
+        elif self.root != None and self.current.head != None:
+            temp = self.current.head
+            temp2 = self.current.parent
+            self.current.add_child(val, 0)
+            self.current = self.current.head
+            self.current.head = temp
+            self.current.parent = temp2
+            
     # Navigation
     def p2c(self, index):
         temp = self.current.head
@@ -71,6 +84,14 @@ class Tree: # Tree Data Structure | Tree Data Type Inspector
         self.id["level"] = 1
         self.id["depth"] = 0
         self.id["node_height"] = self.id["tree_height"]
+
+    # Error Handling
+    def need_root(self):
+        try:
+            raise InitError("Tree needs a root node")
+        except InitError as err:
+            print(err)
+            raise
 
 
 class Tree_Node: # Tree Data Type | It's a linked list
@@ -125,3 +146,6 @@ class Tree_Node: # Tree Data Type | It's a linked list
             temp = temp.next
             length += 1
         return length
+
+class InitError(Exception):
+    """Error happens when a tree has already been initialized with a root node"""

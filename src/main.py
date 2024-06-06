@@ -28,6 +28,7 @@ def main():
         print(f"stack: {intss}")
 
     intst = Tree()
+    intst.init(5)
     for i in range(7):
         intst.insert(i)
         if i%2 == 0 and i != 0:
@@ -44,5 +45,9 @@ def main():
     print(f"Tree:\n{intst}")
     intst.reset()
     print(f"Tree:\n{intst}")
+    intst.replace(18)
+    print(f"Tree:\n{intst}")
+
+
 
 main()
